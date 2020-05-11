@@ -1,0 +1,46 @@
+{
+  "name": "pkboom/laravel-tinker-on-vscode",
+  "description": "",
+  "keywords": [
+    "pkboom",
+    "TinkerOnVscode"
+  ],
+  "homepage": "https://github.com/pkboom/TinkerOnVscode",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Keunbae Park",
+      "email": "ppotpo@gmail.com"
+    }
+  ],
+  "require": {
+    "php": "^7.3",
+    "orchestra/testbench": "^5.2"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Pkboom\\TinkerOnVscode\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests"
+    }
+  },
+  "scripts": {
+    "test": "vendor/bin/phpunit"
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Pkboom\\TinkerOnVscode\\TinkerOnVscodeServiceProvider"
+      ]
+    }
+  }
+}
