@@ -55,7 +55,8 @@ class TinkerOnVscodeCommand extends Command
         $this->outputFile = __DIR__.'/Output.json';
         file_put_contents($this->outputFile, null);
 
-        exec('code Input.php Output.json');
+        exec('code '.$this->inputFile);
+        exec('code '.$this->outputFile);
     }
 
     public function executeCode(string $code)
