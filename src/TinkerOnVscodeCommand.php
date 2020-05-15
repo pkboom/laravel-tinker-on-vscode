@@ -28,7 +28,7 @@ class TinkerOnVscodeCommand extends Command
 
         $this->prepareFiles();
 
-        $this->info('Write code in `Input.php` and save.');
+        $this->info('Write code in `input.php` and save.');
 
         $lastModifiedTimestamp = filemtime($this->inputFile);
 
