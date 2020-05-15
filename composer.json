@@ -5,7 +5,7 @@
     "pkboom",
     "TinkerOnVscode"
   ],
-  "homepage": "https://github.com/pkboom/TinkerOnVscode",
+  "homepage": "https://github.com/pkboom/tinekr-on-vscode",
   "license": "MIT",
   "authors": [
     {
@@ -15,7 +15,8 @@
   ],
   "require": {
     "php": "^7.3",
-    "orchestra/testbench": "^5.2"
+    "orchestra/testbench": "^5.2",
+    "react/event-loop": "^1.1"
   },
   "require-dev": {
     "phpunit/phpunit": "^9.0"
