@@ -49,10 +49,10 @@ class TinkerOnVscodeCommand extends Command
 
     public function prepareFiles()
     {
-        $this->inputFile = base_path('Input.php');
+        $this->inputFile = __DIR__.'./Input.php';
         file_put_contents($this->inputFile, "<?php\n\n");
 
-        $this->outputFile = base_path('Output.json');
+        $this->outputFile = __DIR__.'./Output.json';
         file_put_contents($this->outputFile, null);
 
         exec('code Input.php Output.json');
