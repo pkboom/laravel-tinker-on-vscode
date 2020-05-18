@@ -79,6 +79,8 @@ class TinkerOnVscodeCommand extends Command
             file_put_contents($this->outputFile, $result, FILE_APPEND);
         }
 
+        DB::flushQueryLog();
+
         return;
     }
 
