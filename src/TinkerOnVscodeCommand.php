@@ -68,7 +68,7 @@ class TinkerOnVscodeCommand extends Command
 
             $result = json_encode($result, JSON_PRETTY_PRINT);
         } catch (Throwable $exception) {
-            $result = $exception;
+            $result = wordwrap($exception->getMessage(), 80);
         }
 
         file_put_contents($this->outputFile, $result);
