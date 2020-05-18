@@ -68,7 +68,7 @@ class TinkerOnVscodeCommand extends Command
 
             $result = json_encode($result, JSON_PRETTY_PRINT);
         } catch (Throwable $exception) {
-            $result = wordwrap($exception->getMessage(), 80);
+            $result = $exception;
         }
 
         file_put_contents($this->outputFile, $result);
@@ -77,9 +77,9 @@ class TinkerOnVscodeCommand extends Command
             $result = "\n\n".json_encode(DB::getQueryLog(), JSON_PRETTY_PRINT);
 
             file_put_contents($this->outputFile, $result, FILE_APPEND);
-        }
 
-        DB::flushQueryLog();
+            DB::flushQueryLog();
+        }
 
         return;
     }

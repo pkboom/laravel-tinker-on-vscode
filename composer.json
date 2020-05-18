@@ -1,47 +1,48 @@
 {
-  "name": "pkboom/laravel-tinker-on-vscode",
-  "description": "",
-  "keywords": [
-    "pkboom",
-    "TinkerOnVscode"
-  ],
-  "homepage": "https://github.com/pkboom/tinekr-on-vscode",
-  "license": "MIT",
-  "authors": [
-    {
-      "name": "Keunbae Park",
-      "email": "ppotpo@gmail.com"
+    "name": "pkboom/laravel-tinker-on-vscode",
+    "description": "",
+    "keywords": [
+        "pkboom",
+        "TinkerOnVscode"
+    ],
+    "homepage": "https://github.com/pkboom/tinekr-on-vscode",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Keunbae Park",
+            "email": "ppotpo@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.3",
+        "react/event-loop": "^1.1",
+        "laravel/tinker": "^1.0|^2.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^5.2",
+        "phpunit/phpunit": "^9.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Pkboom\\TinkerOnVscode\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Pkboom\\TinkerOnVscode\\TinkerOnVscodeServiceProvider"
+            ]
+        }
     }
-  ],
-  "require": {
-    "php": "^7.3",
-    "orchestra/testbench": "^5.2",
-    "react/event-loop": "^1.1"
-  },
-  "require-dev": {
-    "phpunit/phpunit": "^9.0"
-  },
-  "autoload": {
-    "psr-4": {
-      "Pkboom\\TinkerOnVscode\\": "src"
-    }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "Tests\\": "tests"
-    }
-  },
-  "scripts": {
-    "test": "vendor/bin/phpunit"
-  },
-  "config": {
-    "sort-packages": true
-  },
-  "extra": {
-    "laravel": {
-      "providers": [
-        "Pkboom\\TinkerOnVscode\\TinkerOnVscodeServiceProvider"
-      ]
-    }
-  }
 }
