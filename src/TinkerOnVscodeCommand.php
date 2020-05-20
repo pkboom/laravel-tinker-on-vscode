@@ -2,15 +2,15 @@
 
 namespace Pkboom\TinkerOnVscode;
 
-use Psy\Shell;
-use Throwable;
-use Psy\Configuration;
-use React\EventLoop\Factory;
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Foundation\Application;
-use Illuminate\Database\Eloquent\Model;
+use Psy\Configuration;
+use Psy\Shell;
+use React\EventLoop\Factory;
+use Throwable;
 
 class TinkerOnVscodeCommand extends Command
 {
@@ -75,6 +75,8 @@ class TinkerOnVscodeCommand extends Command
 
         if ($this->option('query')) {
             $result = "\n\n".json_encode(DB::getQueryLog(), JSON_PRETTY_PRINT);
+
+            $result = str_replace('\"', '', $result);
 
             file_put_contents($this->outputFile, $result, FILE_APPEND);
 
