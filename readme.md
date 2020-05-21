@@ -17,7 +17,7 @@ With query:
 You can install the package via composer:
 
 ```bash
-composer require pkboom/laravel-tinker-on-vscode
+composer require pkboom/laravel-tinker-on-vscode --dev
 ```
 
 ## Usage
