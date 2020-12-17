@@ -110,7 +110,7 @@ class TinkerOnVscodeCommand extends Command
         
         $shell->setOutput($output);
 
-        return  new Shell($config);
+        return  $shell;
     }
 
     /**
