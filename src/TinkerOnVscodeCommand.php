@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Psy\Configuration;
 use Psy\Shell;
 use React\EventLoop\Factory;
+use Symfony\Component\Console\Output\BufferedOutput;
 use Throwable;
 
 class TinkerOnVscodeCommand extends Command
@@ -102,6 +103,12 @@ class TinkerOnVscodeCommand extends Command
             Model::class => 'Laravel\Tinker\TinkerCaster::castModel',
             Application::class => 'Laravel\Tinker\TinkerCaster::castApplication',
         ]);
+
+        $shell = new Shell($config);
+
+        $output = new BufferedOutput();
+        
+        $shell->setOutput($output);
 
         return  new Shell($config);
     }
