@@ -35,7 +35,7 @@ class TinkerOnVscodeCommand extends Command
 
         $loop = Factory::create();
 
-        $loop->addPeriodicTimer(0.5, function () use (&$lastModifiedTimestamp) {
+        $loop->addPeriodicTimer(1, function () use (&$lastModifiedTimestamp) {
             clearstatcache();
 
             if ($lastModifiedTimestamp !== filemtime($this->inputFile)) {
@@ -51,9 +51,13 @@ class TinkerOnVscodeCommand extends Command
     public function prepareFiles()
     {
         $this->inputFile = storage_path('app/input.php');
-        file_put_contents($this->inputFile, "<?php\n\n");
+
+        if (!file_exists($this->inputFile)) {
+            file_put_contents($this->inputFile, "<?php\n\n");
+        }
 
         $this->outputFile = storage_path('app/output.json');
+
         file_put_contents($this->outputFile, null);
 
         exec('code '.$this->inputFile);
