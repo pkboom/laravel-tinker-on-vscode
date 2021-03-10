@@ -15,7 +15,7 @@ use Throwable;
 
 class TinkerOnVscodeCommand extends Command
 {
-    protected $signature = 'tinker-on-vscode {--query}';
+    protected $signature = 'tinker-on-vscode {--query} {--open-output}';
 
     protected $inputFile;
 
@@ -27,9 +27,15 @@ class TinkerOnVscodeCommand extends Command
             DB::enableQueryLog();
         }
 
-        $this->prepareFiles();
+        $openOutput = $this->option('open-output') ? true : false;
+
+        $this->prepareFiles($openOutput);
 
         $this->info('Write code in `input.php` and save.');
+
+        $this->info(storage_path('app/input.php'));
+
+        $this->info(storage_path('app/output.json'));
 
         $lastModifiedTimestamp = filemtime($this->inputFile);
 
@@ -61,7 +67,8 @@ class TinkerOnVscodeCommand extends Command
         file_put_contents($this->outputFile, null);
 
         exec('code '.$this->inputFile);
-        exec('code '.$this->outputFile);
+
+        $openOutput ? exec('code '.$this->outputFile) : null;
     }
 
     public function executeCode(string $code)
