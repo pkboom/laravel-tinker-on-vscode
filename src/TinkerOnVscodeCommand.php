@@ -9,7 +9,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Psy\Configuration;
 use Psy\Shell;
-use React\EventLoop\Factory;
+use React\EventLoop\Loop;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Throwable;
 
@@ -37,7 +37,7 @@ class TinkerOnVscodeCommand extends Command
 
         $lastModifiedTimestamp = filemtime($this->inputFile);
 
-        $loop = Factory::create();
+        $loop = Loop::get();
 
         $loop->addPeriodicTimer(1, function () use (&$lastModifiedTimestamp) {
             clearstatcache();
