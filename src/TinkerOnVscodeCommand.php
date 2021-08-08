@@ -21,9 +21,7 @@ class TinkerOnVscodeCommand extends Command
 
         $lastModifiedTimestamp = filemtime(config('tinker-on-vscode.input'));
 
-        $loop = Loop::get();
-
-        $loop->addPeriodicTimer(1, function () use (&$lastModifiedTimestamp) {
+        Loop::addPeriodicTimer(1, function () use (&$lastModifiedTimestamp) {
             clearstatcache();
 
             if ($lastModifiedTimestamp !== filemtime(config('tinker-on-vscode.input'))) {
@@ -38,8 +36,6 @@ class TinkerOnVscodeCommand extends Command
                 exec($command);
             }
         });
-
-        $loop->run();
     }
 
     public function prepareFiles()
