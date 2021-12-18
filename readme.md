@@ -12,9 +12,11 @@ With query:
 
 <img src="/images/demo1.png" width="800"  title="demo">
 
-## Installation
+You can also output data to the console with `dd()` or `dump()`.
 
-You can install the package via composer:
+<img src="/images/demo3.png" width="800">
+
+## Installation
 
 ```bash
 composer require pkboom/laravel-tinker-on-vscode --dev
@@ -26,10 +28,22 @@ composer require pkboom/laravel-tinker-on-vscode --dev
 php artisan tinker-on-vscode
 ```
 
-You can show queries with an option:
+You can show queries.
 
 ```bash
 php artisan tinker-on-vscode --query
+```
+
+You can dump data to dump server.
+
+```bash
+php artisan tinker-on-vscode --dump
+```
+
+If you only want to dump data,
+
+```bash
+php artisan dump-server
 ```
 
 ## License
