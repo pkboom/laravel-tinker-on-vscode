@@ -4,6 +4,7 @@ namespace Pkboom\TinkerOnVscode;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Config;
+use Pkboom\FileWatcher\FileWatcher;
 use React\EventLoop\Loop;
 
 class TinkerOnVscodeCommand extends Command
@@ -34,22 +35,18 @@ class TinkerOnVscodeCommand extends Command
 
     public function startWatching()
     {
-        $lastModifiedTimestamp = filemtime(Config::get('tinker-on-vscode.input'));
+        $watcher = FileWatcher::create(Config::get('tinker-on-vscode.input'));
 
-        Loop::addPeriodicTimer(1, function () use (&$lastModifiedTimestamp) {
-            clearstatcache();
-
-            if ($lastModifiedTimestamp !== filemtime(Config::get('tinker-on-vscode.input'))) {
-                $lastModifiedTimestamp = filemtime(Config::get('tinker-on-vscode.input'));
-
-                $command = 'process:code';
+        Loop::addPeriodicTimer(1, function () use ($watcher) {
+            $watcher->find()->whenChanged(function () {
+                $command = 'php artisan process:code';
 
                 if ($this->option('query')) {
                     $command .= ' --query';
                 }
 
-                $this->call($command);
-            }
+                exec($command);
+            });
         });
     }
 }
