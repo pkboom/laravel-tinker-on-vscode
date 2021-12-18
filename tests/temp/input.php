@@ -1,0 +1,1 @@
+<?php \Tests\Models\TestModel::all();

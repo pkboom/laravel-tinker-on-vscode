@@ -6,6 +6,7 @@ use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Psy\Configuration;
 use Psy\Shell;
@@ -22,7 +23,7 @@ class ExecuteCodeCommand extends Command
             DB::enableQueryLog();
         }
 
-        $code = file_get_contents(config('tinker-on-vscode.input'));
+        $code = file_get_contents(Config::get('tinker-on-vscode.input'));
 
         $code = $this->removeComments($code);
 
@@ -34,14 +35,14 @@ class ExecuteCodeCommand extends Command
             $result = wordwrap($exception->getMessage(), 80);
         }
 
-        file_put_contents(config('tinker-on-vscode.output'), $result);
+        file_put_contents(Config::get('tinker-on-vscode.output'), $result);
 
         if ($this->option('query')) {
             $result = "\n\n".json_encode(DB::getQueryLog(), JSON_PRETTY_PRINT);
 
             $result = str_replace('\"', '', $result);
 
-            file_put_contents(config('tinker-on-vscode.output'), $result, FILE_APPEND);
+            file_put_contents(Config::get('tinker-on-vscode.output'), $result, FILE_APPEND);
 
             DB::flushQueryLog();
         }

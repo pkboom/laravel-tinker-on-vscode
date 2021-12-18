@@ -1,0 +1,14 @@
+[
+    {
+        "id": 1,
+        "name": "asdf"
+    }
+]
+
+[
+    {
+        "query": "select * from test_models",
+        "bindings": [],
+        "time": 0.57
+    }
+]

@@ -3,6 +3,7 @@
 namespace Pkboom\TinkerOnVscode;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Config;
 use React\EventLoop\Loop;
 
 class TinkerOnVscodeCommand extends Command
@@ -13,39 +14,42 @@ class TinkerOnVscodeCommand extends Command
     {
         $this->prepareFiles();
 
-        $this->info('Write code in `input.php` and save.');
+        $this->info('Write code in `input.php` and save to see results in `output.json`.');
 
-        $this->info(config('tinker-on-vscode.input'));
+        $this->info('Run `File: Open Active File in New Window` to detach input and output files. (Ctrl+K O)');
 
-        $this->info(config('tinker-on-vscode.output'));
+        $this->startWatching();
+    }
 
-        $lastModifiedTimestamp = filemtime(config('tinker-on-vscode.input'));
+    public function prepareFiles()
+    {
+        file_put_contents(Config::get('tinker-on-vscode.input'), "<?php\n\n");
+
+        file_put_contents(Config::get('tinker-on-vscode.output'), null);
+
+        exec('code '.Config::get('tinker-on-vscode.input'));
+
+        exec('code  '.Config::get('tinker-on-vscode.output'));
+    }
+
+    public function startWatching()
+    {
+        $lastModifiedTimestamp = filemtime(Config::get('tinker-on-vscode.input'));
 
         Loop::addPeriodicTimer(1, function () use (&$lastModifiedTimestamp) {
             clearstatcache();
 
-            if ($lastModifiedTimestamp !== filemtime(config('tinker-on-vscode.input'))) {
-                $lastModifiedTimestamp = filemtime(config('tinker-on-vscode.input'));
+            if ($lastModifiedTimestamp !== filemtime(Config::get('tinker-on-vscode.input'))) {
+                $lastModifiedTimestamp = filemtime(Config::get('tinker-on-vscode.input'));
 
-                $command = 'php artisan process:code';
+                $command = 'process:code';
 
                 if ($this->option('query')) {
                     $command .= ' --query';
                 }
 
-                exec($command);
+                $this->call($command);
             }
         });
-    }
-
-    public function prepareFiles()
-    {
-        file_put_contents(config('tinker-on-vscode.input'), "<?php\n\n");
-
-        file_put_contents(config('tinker-on-vscode.output'), null);
-
-        exec('code '.config('tinker-on-vscode.input'));
-
-        exec('code '.config('tinker-on-vscode.output'));
     }
 }
