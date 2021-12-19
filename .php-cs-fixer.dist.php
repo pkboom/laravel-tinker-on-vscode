@@ -6,9 +6,7 @@ $finder = Symfony\Component\Finder\Finder::create()
         __DIR__.'/tests',
     ])
     ->name('*.php')
-    ->notName('*.blade.php')
-    ->ignoreDotFiles(true)
-    ->ignoreVCS(true);
+    ->notName('*.blade.php');
 
 return (new PhpCsFixer\Config())
     ->setUsingCache(false)
