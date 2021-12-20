@@ -4,8 +4,10 @@ namespace Pkboom\TinkerOnVscode;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Str;
 use Pkboom\FileWatcher\FileWatcher;
 use React\EventLoop\Loop;
+use Symfony\Component\Finder\Finder;
 
 class TinkerOnVscodeCommand extends Command
 {
@@ -39,7 +41,12 @@ class TinkerOnVscodeCommand extends Command
 
     public function startWatching()
     {
-        $watcher = FileWatcher::create(Config::get('tinker-on-vscode.input'));
+        $finder = (new Finder())
+            ->name(Str::afterLast(Config::get('tinker-on-vscode.input'), '/'))
+            ->files()
+            ->in(Str::beforeLast(Config::get('tinker-on-vscode.input'), '/'));
+
+        $watcher = FileWatcher::create($finder);
 
         Loop::addPeriodicTimer(1, function () use ($watcher) {
             $watcher->find()->whenChanged(function () {
