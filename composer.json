@@ -22,7 +22,7 @@
         "pkboom/file-watcher": "^0.2.0",
         "react/event-loop": "^1.2",
         "symfony/console": "^5.0",
-        "symfony/finder": "^5.0"
+        "symfony/finder": "^5.4"
     },
     "require-dev": {
         "orchestra/testbench": "^6.23",

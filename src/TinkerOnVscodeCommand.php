@@ -50,7 +50,7 @@ class TinkerOnVscodeCommand extends Command
 
         Loop::addPeriodicTimer(1, function () use ($watcher) {
             $watcher->find()->whenChanged(function () {
-                $command = 'php artisan process:code';
+                $command = 'php artisan execute:code';
 
                 if ($this->option('query')) {
                     $command .= ' --query';

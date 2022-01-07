@@ -15,7 +15,7 @@ use Throwable;
 
 class ExecuteCodeCommand extends Command
 {
-    protected $signature = 'process:code {--query}';
+    protected $signature = 'execute:code {--query}';
 
     public function handle()
     {

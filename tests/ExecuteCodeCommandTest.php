@@ -16,7 +16,7 @@ class ExecuteCodeCommandTest extends TestCase
     {
         file_put_contents(Config::get('tinker-on-vscode.input'), "<?php \$foo = 'foo';");
 
-        $this->artisan('process:code')->assertExitCode(0);
+        $this->artisan('execute:code')->assertExitCode(0);
 
         $output = file_get_contents(Config::get('tinker-on-vscode.output'));
 
@@ -34,7 +34,7 @@ class ExecuteCodeCommandTest extends TestCase
 
         file_put_contents(Config::get('tinker-on-vscode.input'), "<?php \Tests\Models\TestModel::all();");
 
-        $this->artisan('process:code --query')->assertExitCode(0);
+        $this->artisan('execute:code --query')->assertExitCode(0);
 
         $output = file_get_contents(Config::get('tinker-on-vscode.output'));
 
