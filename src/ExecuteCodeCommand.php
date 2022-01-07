@@ -45,6 +45,7 @@ class ExecuteCodeCommand extends Command
             file_put_contents(Config::get('tinker-on-vscode.output'), $result, FILE_APPEND);
 
             DB::flushQueryLog();
+            DB::disableQueryLog();
         }
     }
 
