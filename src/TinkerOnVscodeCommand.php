@@ -19,7 +19,7 @@ class TinkerOnVscodeCommand extends Command
 
         $this->info('Write code in `input.php` and save to see results in `output.json`.');
 
-        $this->info('Run `File: Open Active File in New Window` to detach input and output files. (Ctrl+K O)');
+        $this->info('Run `File: Open Active File in New Window` to detach input and output files. (Ctrl+k o)');
 
         $this->startWatching();
 
