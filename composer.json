@@ -15,14 +15,14 @@
     ],
     "require": {
         "php": "^8.0",
-        "illuminate/console": "^8.76",
-        "illuminate/http": "^8.76",
-        "illuminate/support": "^8.76",
+        "illuminate/console": "^8.76|^9.0",
+        "illuminate/http": "^8.76|^9.0",
+        "illuminate/support": "^8.76|^9.0",
         "laravel/tinker": "^2.6",
         "pkboom/file-watcher": "^0.2.0",
         "react/event-loop": "^1.2",
-        "symfony/console": "^5.0",
-        "symfony/finder": "^5.4"
+        "symfony/console": "^5.0|^6.0",
+        "symfony/finder": "^5.4|^6.0"
     },
     "require-dev": {
         "orchestra/testbench": "^6.23",
