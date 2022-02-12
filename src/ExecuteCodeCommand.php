@@ -60,7 +60,7 @@ class ExecuteCodeCommand extends Command
 
         $config->setHistoryFile(defined('PHP_WINDOWS_VERSION_BUILD') ? 'null' : '/dev/null');
 
-        $config->getPresenter()->addCasters([
+        $config->addCasters([
             Collection::class => 'Laravel\Tinker\TinkerCaster::castCollection',
             Model::class => 'Laravel\Tinker\TinkerCaster::castModel',
             Application::class => 'Laravel\Tinker\TinkerCaster::castApplication',
