@@ -3,7 +3,8 @@
     "description": "Tinker on vscode",
     "keywords": [
         "pkboom",
-        "TinkerOnVscode"
+        "tinker",
+        "vscode"
     ],
     "homepage": "https://github.com/pkboom/laravel-tinker-on-vscode",
     "license": "MIT",
@@ -15,9 +16,9 @@
     ],
     "require": {
         "php": "^8.0",
-        "illuminate/console": "^8.76|^9.0",
-        "illuminate/http": "^8.76|^9.0",
-        "illuminate/support": "^8.76|^9.0",
+        "illuminate/console": "^8.0|^9.0",
+        "illuminate/http": "^8.0|^9.0",
+        "illuminate/support": "^8.0|^9.0",
         "laravel/tinker": "^2.6",
         "pkboom/file-watcher": "^0.2.0",
         "react/event-loop": "^1.2",
