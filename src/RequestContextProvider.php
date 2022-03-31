@@ -60,7 +60,7 @@ class RequestContextProvider implements ContextProviderInterface
             'uri' => $this->currentRequest->getUri(),
             'method' => $this->currentRequest->getMethod(),
             'controller' => $controller ? $this->cloner->cloneVar(class_basename($controller)) : $this->cloner->cloneVar(null),
-            'identifier' => spl_object_hash($this->currentRequest),
+            'identifier' => md5($this->currentRequest->getUri()),
         ];
     }
 }
