@@ -35,6 +35,12 @@ class CliDescriptor implements DumpDescriptorInterface
             $request = $context['request'];
             $this->lastIdentifier = $request['identifier'];
             $section = sprintf('%s %s', $request['method'], $request['uri']);
+            if ($controller = $request['controller']) {
+                $rows[] = ['controller', rtrim($this->dumper->dump($controller, true), "\n")];
+            }
+        } elseif (isset($context['cli'])) {
+            $this->lastIdentifier = $context['cli']['identifier'];
+            $section = '$ '.$context['cli']['command_line'];
         }
 
         if ($this->lastIdentifier !== $lastIdentifier) {
@@ -44,7 +50,7 @@ class CliDescriptor implements DumpDescriptorInterface
         if (isset($context['source'])) {
             $source = $context['source'];
             $file = sprintf('%s on line %d', $source['file_relative'] ?? $source['file'], $source['line']);
-            $rows[] = ['file', $file];
+            $rows[] = ['source', $file];
         }
 
         $io->table([], $rows);
