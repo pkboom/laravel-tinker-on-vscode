@@ -41,6 +41,14 @@ class CliDescriptor implements DumpDescriptorInterface
             $io->section($section);
         }
 
+        if (isset($context['source'])) {
+            $source = $context['source'];
+            $file = sprintf('%s on line %d', $source['file_relative'] ?? $source['file'], $source['line']);
+            $rows[] = ['file', $file];
+        }
+
+        $io->table([], $rows);
+
         $this->dumper->dump($data);
         $io->newLine();
     }
