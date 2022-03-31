@@ -31,15 +31,18 @@ class CliDescriptor implements DumpDescriptorInterface
         $this->lastIdentifier = $clientId;
 
         $section = "Received from client #$clientId";
-        if (isset($context['request'])) {
-            $request = $context['request'];
-            $this->lastIdentifier = $request['identifier'];
-            $section = sprintf('%s %s', $request['method'], $request['uri']);
-        }
 
         if ($this->lastIdentifier !== $lastIdentifier) {
             $io->section($section);
         }
+
+        if (isset($context['source'])) {
+            $source = $context['source'];
+            $file = sprintf('%s on line %d', $source['file_relative'] ?? $source['file'], $source['line']);
+            $rows[] = ['file', $file];
+        }
+
+        $io->table([], $rows);
 
         $this->dumper->dump($data);
         $io->newLine();
