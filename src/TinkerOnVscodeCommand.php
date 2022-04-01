@@ -11,7 +11,7 @@ use Symfony\Component\Finder\Finder;
 
 class TinkerOnVscodeCommand extends Command
 {
-    protected $signature = 'tinker-on-vscode {--query} {--dump}';
+    protected $signature = 'tinker-on-vscode {--query}';
 
     public function handle()
     {
@@ -22,10 +22,6 @@ class TinkerOnVscodeCommand extends Command
         $this->info('Run `File: Open Active File in New Window` to detach input and output files. (Ctrl+k o)');
 
         $this->startWatching();
-
-        if ($this->option('dump')) {
-            $this->call(DumpServerCommand::class);
-        }
     }
 
     public function prepareFiles()
