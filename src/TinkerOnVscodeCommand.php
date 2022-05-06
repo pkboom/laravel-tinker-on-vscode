@@ -46,6 +46,16 @@ class TinkerOnVscodeCommand extends Command
 
         Loop::addPeriodicTimer(1, function () use ($watcher) {
             $watcher->find()->whenChanged(function () {
+                $code = file_get_contents(Config::get('tinker-on-vscode.input'));
+
+                $dumpExists = preg_match('/^\s*dump\(/m', $code);
+
+                if ($dumpExists) {
+                    $this->call(ExecuteCodeCommand::class, [
+                        '--use-dump' => true,
+                    ]);
+                }
+
                 $command = 'php artisan execute:code';
 
                 if ($this->option('query')) {

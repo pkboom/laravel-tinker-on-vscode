@@ -15,7 +15,7 @@ use Throwable;
 
 class ExecuteCodeCommand extends Command
 {
-    protected $signature = 'execute:code {--query}';
+    protected $signature = 'execute:code {--query} {--use-dump}';
 
     public function handle()
     {
@@ -25,17 +25,29 @@ class ExecuteCodeCommand extends Command
 
         $code = file_get_contents(Config::get('tinker-on-vscode.input'));
 
+        if (!$this->option('use-dump')) {
+            $code = preg_replace('/^\s*dump\(/m', '//', $code);
+        }
+
         $code = $this->removeComments($code);
 
+        $shell = $this->createShell();
+
+        $output = $this->option('use-dump') ? $this->output : new BufferedOutput();
+
         try {
-            $result = $this->createShell()->execute($code, true);
+            $shell->setOutput($output);
+
+            $result = $shell->execute($code, true);
 
             $result = json_encode($result, JSON_PRETTY_PRINT);
         } catch (Throwable $exception) {
             $result = wordwrap($exception->getMessage(), 80);
         }
 
-        file_put_contents(Config::get('tinker-on-vscode.output'), $result);
+        if (!$this->option('use-dump')) {
+            file_put_contents(Config::get('tinker-on-vscode.output'), $result);
+        }
 
         if ($this->option('query')) {
             $result = "\n\n".json_encode(DB::getQueryLog(), JSON_PRETTY_PRINT);
@@ -66,13 +78,7 @@ class ExecuteCodeCommand extends Command
             Application::class => 'Laravel\Tinker\TinkerCaster::castApplication',
         ]);
 
-        $shell = new Shell($config);
-
-        $output = new BufferedOutput();
-
-        $shell->setOutput($output);
-
-        return $shell;
+        return new Shell($config);
     }
 
     /**
