@@ -6,8 +6,10 @@ use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Env;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
+use Laravel\Tinker\ClassAliasAutoloader;
 use Psy\Configuration;
 use Psy\Shell;
 use Symfony\Component\Console\Output\BufferedOutput;
@@ -33,6 +35,19 @@ class ExecuteCodeCommand extends Command
 
         $shell = $this->createShell();
 
+        $path = Env::get('COMPOSER_VENDOR_DIR', $this->getLaravel()->basePath().DIRECTORY_SEPARATOR.'vendor');
+
+        $path .= '/composer/autoload_classmap.php';
+
+        $config = $this->getLaravel()->make('config');
+
+        $loader = ClassAliasAutoloader::register(
+            $shell,
+            $path,
+            $config->get('tinker.alias', []),
+            $config->get('tinker.dont_alias', [])
+        );
+
         $output = $this->option('use-dump') ? $this->output : new BufferedOutput();
 
         try {
@@ -43,6 +58,8 @@ class ExecuteCodeCommand extends Command
             $result = json_encode($result, JSON_PRETTY_PRINT);
         } catch (Throwable $exception) {
             $result = wordwrap($exception->getMessage(), 80);
+        } finally {
+            $loader->unregister();
         }
 
         if (!$this->option('use-dump')) {
