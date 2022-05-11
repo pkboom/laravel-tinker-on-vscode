@@ -28,14 +28,16 @@ class ExecuteCodeCommand extends Command
         $code = file_get_contents(Config::get('tinker-on-vscode.input'));
 
         if (!$this->option('use-dump')) {
-            $code = preg_replace('/^\s*dump\(/m', '//', $code);
+            $code = preg_replace(['/^\s*dump\(/m', '/^\s*echo\s/m'], ['//', '//'], $code);
         }
 
         $code = $this->removeComments($code);
 
         $shell = $this->createShell();
 
-        $path = Env::get('COMPOSER_VENDOR_DIR', $this->getLaravel()->basePath().DIRECTORY_SEPARATOR.'vendor');
+        $path = $this->getLaravel()->environment('testing')
+            ? getcwd().'/vendor'
+            : Env::get('COMPOSER_VENDOR_DIR', $this->getLaravel()->basePath().DIRECTORY_SEPARATOR.'vendor');
 
         $path .= '/composer/autoload_classmap.php';
 

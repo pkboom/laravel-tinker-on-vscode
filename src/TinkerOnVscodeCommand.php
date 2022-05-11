@@ -48,9 +48,11 @@ class TinkerOnVscodeCommand extends Command
             $watcher->find()->whenChanged(function () {
                 $code = file_get_contents(Config::get('tinker-on-vscode.input'));
 
-                $dumpExists = preg_match('/^\s*dump\(/m', $code);
+                $viaTerminal = array_filter(['dump(', 'echo '], function ($expression) use ($code) {
+                    return strpos($code, $expression) !== false;
+                });
 
-                if ($dumpExists) {
+                if (count($viaTerminal)) {
                     $this->call(ExecuteCodeCommand::class, [
                         '--use-dump' => true,
                     ]);
