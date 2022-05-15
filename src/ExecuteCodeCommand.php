@@ -28,7 +28,9 @@ class ExecuteCodeCommand extends Command
         $code = file_get_contents(Config::get('tinker-on-vscode.input'));
 
         if (!$this->option('use-dump')) {
-            $code = preg_replace(['/^\s*dump\(/m', '/^\s*echo\s/m'], ['//', '//'], $code);
+            $code = preg_replace(['/^\s*dump\(/m', '/^\s*echo\s/m', '/^\s*dv\(/m'], '//', $code);
+        } else {
+            $code = preg_replace(['/^\s*(dv\()([^)]+)(\))/m'], 'dump(\'${2}\', ${2}${3}', $code);
         }
 
         $code = $this->removeComments($code);
