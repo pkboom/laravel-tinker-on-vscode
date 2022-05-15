@@ -50,7 +50,7 @@ class TinkerOnVscodeCommand extends Command
             $watcher->find()->whenChanged(function () {
                 $code = file_get_contents(Config::get('tinker-on-vscode.input'));
 
-                $viaTerminal = array_filter(['dump(', 'echo '], function ($expression) use ($code) {
+                $viaTerminal = array_filter(['dump(', 'echo ', 'dv('], function ($expression) use ($code) {
                     return strpos($code, $expression) !== false;
                 });
 
