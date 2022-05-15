@@ -11,7 +11,7 @@ use Symfony\Component\Finder\Finder;
 
 class TinkerOnVscodeCommand extends Command
 {
-    protected $signature = 'tinker-on-vscode {--query}';
+    protected $signature = 'tinker-on-vscode {--query} {--continuous}';
 
     public function handle()
     {
@@ -26,13 +26,15 @@ class TinkerOnVscodeCommand extends Command
 
     public function prepareFiles()
     {
-        file_put_contents(Config::get('tinker-on-vscode.input'), "<?php\n\n");
-
         file_put_contents(Config::get('tinker-on-vscode.output'), null);
 
-        exec('code '.Config::get('tinker-on-vscode.input'));
+        if (!$this->option('continuous')) {
+            file_put_contents(Config::get('tinker-on-vscode.input'), "<?php\n\n");
 
-        exec('code  '.Config::get('tinker-on-vscode.output'));
+            exec('code '.Config::get('tinker-on-vscode.input'));
+
+            exec('code  '.Config::get('tinker-on-vscode.output'));
+        }
     }
 
     public function startWatching()
