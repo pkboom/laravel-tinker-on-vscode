@@ -30,6 +30,9 @@ class ExecuteCodeCommand extends Command
         if (!$this->option('use-dump')) {
             $code = preg_replace(['/^\s*dump\(/m', '/^\s*echo\s/m', '/^\s*dv\(/m'], '//', $code);
         } else {
+            $this->line('');
+            $this->info('---------------------------------------');
+
             $code = preg_replace(['/^\s*(dv\()([^)]+)(\))/m'], 'dump(\'${2}\', ${2}${3}', $code);
         }
 
