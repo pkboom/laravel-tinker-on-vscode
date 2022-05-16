@@ -46,7 +46,7 @@ class TinkerOnVscodeCommand extends Command
 
         $watcher = FileWatcher::create($finder);
 
-        Loop::addPeriodicTimer(1, function () use ($watcher) {
+        Loop::addPeriodicTimer(0.5, function () use ($watcher) {
             $watcher->find()->whenChanged(function () {
                 $code = file_get_contents(Config::get('tinker-on-vscode.input'));
 
