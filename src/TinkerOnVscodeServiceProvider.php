@@ -14,6 +14,10 @@ class TinkerOnVscodeServiceProvider extends ServiceProvider
                 TinkerOnVscodeCommand::class,
             ]);
         }
+
+        $this->publishes([
+            __DIR__.'/../config/tinker-on-vscode.php' => config_path('tinker-on-vscode.php'),
+        ], 'config');
     }
 
     public function register()

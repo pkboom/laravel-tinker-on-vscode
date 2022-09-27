@@ -14,6 +14,12 @@ With query:
 composer require pkboom/laravel-tinker-on-vscode --dev
 ```
 
+You can publish the config:
+
+```bash
+php artisan vendor:publish --provider="Pkboom\TinkerOnVscode\TinkerOnVscodeServiceProvider" --tag="config"
+```
+
 ## Usage
 
 ```bash
