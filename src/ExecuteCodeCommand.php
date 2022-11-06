@@ -13,11 +13,12 @@ use Laravel\Tinker\ClassAliasAutoloader;
 use Psy\Configuration;
 use Psy\Shell;
 use Symfony\Component\Console\Output\BufferedOutput;
-use Throwable;
 
 class ExecuteCodeCommand extends Command
 {
     protected $signature = 'execute:code {--query} {--use-dump}';
+
+    protected $hidden = true;
 
     public function handle()
     {
@@ -63,7 +64,7 @@ class ExecuteCodeCommand extends Command
             $result = $shell->execute($code, true);
 
             $result = json_encode($result, JSON_PRETTY_PRINT);
-        } catch (Throwable $exception) {
+        } catch (\Throwable $exception) {
             $result = wordwrap($exception->getMessage(), 80);
         } finally {
             $loader->unregister();
