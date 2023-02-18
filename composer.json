@@ -16,9 +16,9 @@
     ],
     "require": {
         "php": "^7.0|^8.0",
-        "illuminate/console": "^8.0|^9.0",
-        "illuminate/http": "^8.0|^9.0",
-        "illuminate/support": "^8.0|^9.0",
+        "illuminate/console": "^8.0|^9.0|^10.0",
+        "illuminate/http": "^8.0|^9.0|^10.0",
+        "illuminate/support": "^8.0|^9.0|^10.0",
         "laravel/tinker": "^2.6",
         "pkboom/file-watcher": "^0.2.0",
         "react/event-loop": "^1.2",
