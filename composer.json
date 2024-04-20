@@ -15,19 +15,18 @@
         }
     ],
     "require": {
-        "php": "^7.0|^8.0",
-        "illuminate/console": "^8.0|^9.0|^10.0",
-        "illuminate/http": "^8.0|^9.0|^10.0",
-        "illuminate/support": "^8.0|^9.0|^10.0",
-        "laravel/tinker": "^2.6",
-        "pkboom/file-watcher": "^0.2.0",
+        "php": "^8.2",
+        "illuminate/console": "^10.0|^11.0",
+        "illuminate/http": "^10.0|^11.0",
+        "illuminate/support": "^10.0|^11.0",
+        "laravel/tinker": "^2.9",
+        "pkboom/file-watcher": "^0.2.6",
         "react/event-loop": "^1.2",
-        "symfony/console": "^5.0|^6.0",
-        "symfony/finder": "^5.4|^6.0"
+        "symfony/console": "^6.0|^7.0"
     },
     "require-dev": {
-        "orchestra/testbench": "^6.23",
-        "phpunit/phpunit": "^9.5"
+        "orchestra/testbench": "9.x-dev",
+        "phpunit/phpunit": "^10.0"
     },
     "autoload": {
         "psr-4": {
@@ -51,5 +50,7 @@
                 "Pkboom\\TinkerOnVscode\\TinkerOnVscodeServiceProvider"
             ]
         }
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
