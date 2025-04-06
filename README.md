@@ -27,12 +27,6 @@ php artisan vendor:publish --provider="Pkboom\TinkerOnVscode\TinkerOnVscodeServi
 php artisan tinker-on-vscode
 ```
 
-You can show queries.
-
-```bash
-php artisan tinker-on-vscode --query
-```
-
 ## License
 
 The MIT License (MIT). Please see [MIT license](http://opensource.org/licenses/MIT) for more information.
