@@ -15,11 +15,11 @@
         }
     ],
     "require": {
-        "php": "^8.2",
+        "php": "^8.0",
         "illuminate/console": "^10.0|^11.0",
         "illuminate/http": "^10.0|^11.0",
         "illuminate/support": "^10.0|^11.0",
-        "laravel/tinker": "^2.9",
+        "laravel/tinker": "^2.6",
         "pkboom/file-watcher": "^0.2.6",
         "react/event-loop": "^1.2",
         "symfony/console": "^6.0|^7.0"
