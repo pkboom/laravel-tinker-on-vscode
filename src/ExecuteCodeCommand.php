@@ -9,6 +9,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Env;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 use Laravel\Tinker\ClassAliasAutoloader;
 use Psy\Configuration;
 use Psy\Shell;
@@ -22,7 +23,7 @@ class ExecuteCodeCommand extends Command
 
     public function handle()
     {
-        if ($this->option('query')) {
+        if (!$this->option('use-dump')) {
             DB::enableQueryLog();
         }
 
@@ -62,28 +63,25 @@ class ExecuteCodeCommand extends Command
             $shell->setOutput($output);
 
             $result = $shell->execute($code, true);
-
-            $result = json_encode($result, JSON_PRETTY_PRINT);
         } catch (\Throwable $exception) {
             $result = wordwrap($exception->getMessage(), 80);
         } finally {
             $loader->unregister();
         }
 
-        if (!$this->option('use-dump')) {
-            file_put_contents(Config::get('tinker-on-vscode.output'), $result);
+        if ($this->option('use-dump')) {
+            return;
         }
 
-        if ($this->option('query')) {
-            $result = "\n\n".json_encode(DB::getQueryLog(), JSON_PRETTY_PRINT);
+        $payload = [$result];
+        $payload[] = DB::getQueryLog();
 
-            $result = str_replace('\"', '', $result);
+        Http::post(config('pick.pick-server'), [
+            'data' => json_encode($payload),
+        ]);
 
-            file_put_contents(Config::get('tinker-on-vscode.output'), $result, FILE_APPEND);
-
-            DB::flushQueryLog();
-            DB::disableQueryLog();
-        }
+        DB::flushQueryLog();
+        DB::disableQueryLog();
     }
 
     /**

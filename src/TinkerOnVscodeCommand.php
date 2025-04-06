@@ -11,30 +11,24 @@ use Symfony\Component\Finder\Finder;
 
 class TinkerOnVscodeCommand extends Command
 {
-    protected $signature = 'tinker-on-vscode {--query} {--continuous}';
+    protected $signature = 'tinker-on-vscode';
 
     public function handle()
     {
         $this->prepareFiles();
 
-        $this->info('Write code in `input.php` and save to see results in `output.json`.');
+        $this->info("Write code in 'input.php' and save and see results at 'pick-server.test'");
 
-        $this->info('Run `File: Open Active File in New Window` to detach input and output files. (Ctrl+k o)');
+        $this->info("You can visit https://github.com/pkboom/pick-server to set up 'pick-server.test'.");      
 
         $this->startWatching();
     }
 
     public function prepareFiles()
     {
-        file_put_contents(Config::get('tinker-on-vscode.output'), null);
+        file_put_contents(Config::get('tinker-on-vscode.input'), "<?php\n\n");
 
-        if (!$this->option('continuous')) {
-            file_put_contents(Config::get('tinker-on-vscode.input'), "<?php\n\n");
-
-            exec('code '.Config::get('tinker-on-vscode.input'));
-
-            exec('code  '.Config::get('tinker-on-vscode.output'));
-        }
+        exec('code '.Config::get('tinker-on-vscode.input'));
     }
 
     public function startWatching()
@@ -60,13 +54,7 @@ class TinkerOnVscodeCommand extends Command
                     ]);
                 }
 
-                $command = 'php artisan execute:code';
-
-                if ($this->option('query')) {
-                    $command .= ' --query';
-                }
-
-                exec($command);
+                exec('php artisan execute:code');
             });
         });
     }

@@ -2,15 +2,12 @@
 
 You can tinker with your application on vscode.
 
-<img src="/images/demo2.png" width="800">
+<img src="./images/demo4.png" width="800">
+<img src="./images/demo5.png" width="800">
 
-With query:
+You can dump:
 
-<img src="/images/demo1.png" width="800">
-
-You can even dump:
-
-<img src="/images/demo3.png" width="800">
+<img src="./images/demo3.png" width="800">
 
 ## Installation
 
