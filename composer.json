@@ -15,14 +15,14 @@
         }
     ],
     "require": {
-        "php": "^8.2",
-        "illuminate/console": "^12.0",
-        "illuminate/http": "^12.0",
-        "illuminate/support": "^12.0",
+        "php": "^8.1",
+        "illuminate/console": "^10.0",
+        "illuminate/http": "^10.0",
+        "illuminate/support": "^10.0",
         "laravel/tinker": "^2.10.1",
         "pkboom/file-watcher": "^0.2.6",
         "react/event-loop": "^1.5",
-        "symfony/console": "^7.2.0"
+        "symfony/console": "^6.2.0"
     },
     "autoload": {
         "psr-4": {
